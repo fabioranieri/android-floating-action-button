@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.util.Property;
+import com.nineoldandroids.view.ViewHelper;
 
 public class FloatingActionsMenu extends ViewGroup {
     public static final int EXPAND_UP = 0;
@@ -282,8 +284,10 @@ public class FloatingActionsMenu extends ViewGroup {
                     float collapsedTranslation = addButtonY - childY;
                     float expandedTranslation = 0f;
 
-                    child.setTranslationY(mExpanded ? expandedTranslation : collapsedTranslation);
-                    child.setAlpha(mExpanded ? 1f : 0f);
+                    ViewHelper.setTranslationY(child, mExpanded ? expandedTranslation : collapsedTranslation);
+                    ViewHelper.setAlpha(child, mExpanded ? 1f : 0f);
+                    //child.setTranslationY(mExpanded ? expandedTranslation : collapsedTranslation);
+                    //child.setAlpha(mExpanded ? 1f : 0f);
 
                     LayoutParams params = (LayoutParams) child.getLayoutParams();
                     params.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
@@ -297,8 +301,10 @@ public class FloatingActionsMenu extends ViewGroup {
 
                         label.layout(labelLeft, labelTop, labelsRight, labelTop + label.getMeasuredHeight());
 
-                        label.setTranslationY(mExpanded ? expandedTranslation : collapsedTranslation);
-                        label.setAlpha(mExpanded ? 1f : 0f);
+                        ViewHelper.setTranslationY(label, mExpanded ? expandedTranslation : collapsedTranslation);
+                        ViewHelper.setAlpha(label, mExpanded ? 1f : 0f);
+                        //label.setTranslationY(mExpanded ? expandedTranslation : collapsedTranslation);
+                        //label.setAlpha(mExpanded ? 1f : 0f);
 
                         LayoutParams labelParams = (LayoutParams) label.getLayoutParams();
                         labelParams.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
@@ -337,8 +343,10 @@ public class FloatingActionsMenu extends ViewGroup {
                     float collapsedTranslation = addButtonX - childX;
                     float expandedTranslation = 0f;
 
-                    child.setTranslationX(mExpanded ? expandedTranslation : collapsedTranslation);
-                    child.setAlpha(mExpanded ? 1f : 0f);
+                    ViewHelper.setTranslationY(child, mExpanded ? expandedTranslation : collapsedTranslation);
+                    ViewHelper.setAlpha(child, mExpanded ? 1f : 0f);
+                    //child.setTranslationX(mExpanded ? expandedTranslation : collapsedTranslation);
+                    //child.setAlpha(mExpanded ? 1f : 0f);
 
                     LayoutParams params = (LayoutParams) child.getLayoutParams();
                     params.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
@@ -394,22 +402,25 @@ public class FloatingActionsMenu extends ViewGroup {
             mCollapseDir.setInterpolator(sCollapseInterpolator);
             mCollapseAlpha.setInterpolator(sCollapseInterpolator);
 
-            mCollapseAlpha.setProperty(PreHoneycombCompat.ALPHA);
+            mCollapseAlpha.setProperty(Property.of(View.class, Float.class, "alpha"));
+            //PreHoneycombCompat.ALPHA);
             mCollapseAlpha.setFloatValues(1f, 0f);
 
-            mExpandAlpha.setProperty(PreHoneycombCompat.ALPHA);
+            mExpandAlpha.setProperty(Property.of(View.class, Float.class, "alpha"));
             mExpandAlpha.setFloatValues(0f, 1f);
 
             switch (mExpandDirection) {
                 case EXPAND_UP:
                 case EXPAND_DOWN:
-                    mCollapseDir.setProperty(PreHoneycombCompat.TRANSLATION_Y);
-                    mExpandDir.setProperty(PreHoneycombCompat.TRANSLATION_Y);
+                    mCollapseDir.setProperty(Property.of(View.class, Float.class, "translationY"));
+                            //PreHoneycombCompat.TRANSLATION_Y);
+                    mExpandDir.setProperty(Property.of(View.class, Float.class, "translationY"));
                     break;
                 case EXPAND_LEFT:
                 case EXPAND_RIGHT:
-                    mCollapseDir.setProperty(PreHoneycombCompat.TRANSLATION_X);
-                    mExpandDir.setProperty(PreHoneycombCompat.TRANSLATION_X);
+                    mCollapseDir.setProperty(Property.of(View.class, Float.class, "translationX"));
+                            //PreHoneycombCompat.TRANSLATION_X);
+                    mExpandDir.setProperty(Property.of(View.class, Float.class, "translationX"));
                     break;
             }
 

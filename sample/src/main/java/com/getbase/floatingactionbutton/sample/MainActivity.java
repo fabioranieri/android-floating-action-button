@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
     actionC.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        actionB.setVisibility(actionB.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            actionB.setVisibility(actionB.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
       }
     });
     ((FloatingActionsMenu) findViewById(R.id.multiple_actions)).addButton(actionC);
